@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Gap Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #6A87BC;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #16202a;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar h1 {
+            margin: 0;
+            color: white;
+        }
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 15px;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            padding: 30px;
+            height: calc(100vh - 60px);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .panel {
+            background: #23303e;
+            padding: 30px;
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        h2 {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        input[type="file"], select {
+            width: 100%;
+            padding: 12px;
+            margin: 20px 0;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            background: white;
+            color: #1a252f;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+            width: auto;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <h1>SKILL GAP ANALYSIS</h1>
+            <nav>
+                <a href="index.html">Home</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <section class="panel">
+                <h2><i class="fa fa-upload"></i> Upload Resume</h2>
+                <input type="file" id="resumeUpload" accept=".txt, .pdf">
+                
+                
+                <h2>Specialization</h2>
+                <select id="specialization">
+                    <option value="">Select Specialization</option>
+                    <option value="CSE">BTech - Computer Science And Engineering</option>
+                    <option value="Mechanics">BTech - Mechanics</option>
+                    <option value="IT">BTech - Information Technology</option>
+                </select>
+                
+                <a href="missing1.html">
+                    <button class="btn" id="analyzeBtn">Proceed to Missing Skills</button>
+                </a>
+            </section>
+        </div>
+    </main>
+    <script>
+        document.getElementById('analyzeBtn').addEventListener('click', function () {
+            const fileInput = document.getElementById('resumeUpload');
+            const file = fileInput.files[0];
+            const specialization = document.getElementById('specialization').value;
+
+            if (!file) {
+                alert("Please upload a resume file.");
+                return;
+            }
+            if (!specialization) {
+                alert("Please select a specialization.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.readAsText(file);
+            
+            reader.onload = function () {
+                let resumeText = reader.result.toLowerCase();
+
+                // Normalize text (remove special characters & extra spaces)
+                resumeText = resumeText.replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, ' ');
+
+                // Skill database (Lowercased for comparison)
+                const skillsDatabase = {
+                    "CSE": ["Data Structures", "Algorithms", "Machine Learning", "Database Management", "System Design"],
+                    "IT": ["Cybersecurity", "Cloud Computing", "Networking", "Software Development"],
+                    "Mechanics": ["Solid Mechanics", "Thermodynamics", "Fluid Dynamics"]
+                };
+
+                // Get required skills for selected specialization
+                const requiredSkills = skillsDatabase[specialization].map(skill => skill.toLowerCase().trim());
+
+                // Find missing skills
+                const missingSkills = requiredSkills.filter(skill => !resumeText.includes(skill));
+
+                // Save missing skills to localStorage
+                localStorage.setItem('missingSkills', JSON.stringify(missingSkills));
+
+                // Redirect to missing skills page
+                window.location.href = "missing1.html";
+            };
+
+            reader.onerror = function () {
+                alert("Error reading the file. Please try again.");
+            };
+        });
+    </script>
+</body>
+</html>
