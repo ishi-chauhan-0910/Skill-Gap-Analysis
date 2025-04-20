@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSync - Skill Gap Analysis</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --accent-color: #F5A623;
+      --header-gradient: linear-gradient(135deg, #4A90E2, #85e8d2);
+      --nav-bg: #f1f1f1;
+      --container-bg: #e5f5ff;
+      --body-bg: linear-gradient(135deg, #ECF0F1, #FFFFFF);
+      --text-color: #333333;
+      --card-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      --highlight-color: #4A90E2;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--body-bg);
+      color: var(--text-color);
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 160%;
+      height: 160%;
+      background: radial-gradient(circle, rgba(0,0,0,0.05), transparent 60%);
+      opacity: 0.3;
+      border-radius: 50%;
+      transform: scale(1) rotate(0deg);
+      animation: swirl 30s linear infinite;
+      pointer-events: none;
+      z-index: -999;
+    }
+    @keyframes swirl {
+      0%   { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1) rotate(360deg); }
+    }
+    header {
+      background: var(--header-gradient);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      animation: fadeDown 0.8s ease-out;
+    }
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .header-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    .header-icons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .header-icons button,
+    .header-icons a {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .header-icons button:hover,
+    .header-icons a:hover {
+      background: var(--highlight-color);
+      transform: scale(1.08);
+    }
+    nav {
+      background: var(--nav-bg);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: sticky;
+      top: 80px;
+      z-index: 90;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    nav a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav a:hover {
+      background: var(--primary-color);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .container {
+      margin: 20px auto;
+      max-width: 1200px;
+      padding: 30px;
+      background: var(--container-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      animation: containerFade 0.8s ease-out;
+    }
+    .container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 28px;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .explore-section {
+      margin: 20px auto;
+      max-width: 1200px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      background: var(--container-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+      animation: containerFade 0.8s ease-out;
+    }
+    .explore-box {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s, background 0.3s;
+    }
+    .explore-box {
+      background: #fff;
+      color: #333;
+    }
+    .explore-box:hover {
+      transform: scale(1.02);
+      background: #f7f7f7;
+    }
+    .explore-box h3 {
+      margin-bottom: 15px;
+      color: inherit;
+      font-size: 20px;
+    }
+    .explore-form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .explore-form label {
+      font-weight: 500;
+      color: inherit;
+    }
+    .explore-form input[type='file'],
+    .explore-form textarea {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+      width: 100%;
+    }
+    .explore-form button {
+      background: var(--primary-color);
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.3s;
+    }
+    .explore-form button:hover {
+      background: var(--secondary-color);
+    }
+    #gap-result ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    #gap-result li {
+      margin: 10px 0;
+    }
+    #gap-result a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    #gap-result a:hover {
+      text-decoration: underline;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      transition: opacity 0.3s, background 0.3s;
+      z-index: 1000;
+    }
+    #backToTop:hover {
+      background: var(--accent-color);
+    }
+    @media (max-width: 992px) {
+      .explore-section {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-title">HireReady</div>
+    <div class="header-icons">
+    </div>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="learning_path.html">Learning Paths</a>
+    <a href="interview_prep.html">Interview Prep</a>
+  </nav>
+
+  <div class="container">
+    <h2>Skill Gap Analysis</h2>
+    <div class="explore-section">
+      <div class="explore-box">
+        <h3>Upload Your Details</h3>
+        <form class="explore-form">
+          <label for="resume">Resume (PDF/Text)</label>
+          <input type="file" id="resume" accept=".pdf,.txt"/>
+          <label for="job-desc">Job Description</label>
+          <textarea id="job-desc" placeholder="Paste job description here" rows="5"></textarea>
+          <button type="button" onclick="analyzeSkills()">Analyze</button>
+        </form>
+      </div>
+      <div class="explore-box">
+        <h3>Skill Gaps Identified</h3>
+        <div id="gap-result">Upload your resume to see gaps!</div>
+      </div>
+    </div>
+  </div>
+
+  <button id="backToTop" onclick="scrollToTop()">⇧</button>
+
+  <script>
+    function analyzeSkills() {
+      const resumeInput = document.getElementById('resume');
+      const jobDesc = document.getElementById('job-desc').value;
+      const gapResult = document.getElementById('gap-result');
+
+      console.log('Analyze button clicked');
+      console.log('Resume Input:', resumeInput);
+      console.log('Files:', resumeInput.files);
+      console.log('Job Description:', jobDesc);
+
+      if (!resumeInput.files || resumeInput.files.length === 0) {
+        console.log('No file uploaded');
+        gapResult.innerText = 'Please upload a resume';
+        return;
+      }
+      if (!jobDesc.trim()) {
+        console.log('No job description entered');
+        gapResult.innerText = 'Please enter a job description';
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('resume', resumeInput.files[0]);
+      formData.append('jobDesc', jobDesc);
+
+      console.log('Sending fetch request');
+      gapResult.innerText = 'Analyzing...';
+
+      fetch('http://localhost:3000/api/analyze-skills', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Server error: ' + response.status);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Raw Response:', data);
+          console.log('Missing Skills:', data.missingSkills);
+          console.log('Job Role:', data.jobRole);
+          console.log('Learning Path:', data.learningPath);
+
+          const missingSkills = data.missingSkills || [];
+          const jobRole = data.jobRole || 'General Role';
+          const learningPath = data.learningPath || [];
+
+          // Store results in localStorage
+          localStorage.setItem('skillGapAnalysis', JSON.stringify({
+            missingSkills,
+            jobRole,
+            learningPath
+          }));
+
+          if (missingSkills.length > 0) {
+            let resultHTML = `<p>Job Role: ${jobRole}</p><p>Missing Skills:</p><ul>`;
+            missingSkills.forEach(skill => {
+              resultHTML += `<li>${skill}</li>`;
+            });
+            resultHTML += '</ul><p>Recommended Learning Paths:</p><ul>';
+            learningPath.forEach(path => {
+              resultHTML += `<li><strong>${path.title}</strong><ul>`;
+              path.resources.forEach(resource => {
+                resultHTML += `<li><a href="${resource.url}" target="_blank">${resource.name}</a></li>`;
+              });
+              resultHTML += '</ul></li>';
+            });
+            resultHTML += '</ul>';
+            gapResult.innerHTML = resultHTML;
+          } else {
+            gapResult.innerText = `No significant gaps detected for ${jobRole}.`;
+          }
+        })
+        .catch(error => {
+          console.error('Fetch Error:', error);
+          gapResult.innerText = 'Error analyzing skills. Check the console for details.';
+        });
+    }
+
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

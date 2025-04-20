@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSync - Mock Interview</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --accent-color: #F5A623;
+      --header-gradient: linear-gradient(135deg, #4A90E2, #85e8d2);
+      --nav-bg: #f1f1f1;
+      --container-bg: #e5f5ff;
+      --body-bg: linear-gradient(135deg, #ECF0F1, #FFFFFF);
+      --text-color: #333333;
+      --card-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      --highlight-color: #4A90E2;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--body-bg);
+      color: var(--text-color);
+      overflow-x: hidden;
+    }
+    header {
+      background: var(--header-gradient);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .header-icons button {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .header-icons button:hover {
+      background: var(--highlight-color);
+      transform: scale(1.08);
+    }
+    nav {
+      background: var(--nav-bg);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: sticky;
+      top: 80px;
+      z-index: 90;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    nav a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav a:hover {
+      background: var(--primary-color);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .container {
+      margin: 20px auto;
+      max-width: 1200px;
+      padding: 30px;
+      background: var(--container-bg);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 28px;
+    }
+    #mock-interview {
+      text-align: center;
+    }
+    #mock-interview p {
+      font-size: 18px;
+      margin-bottom: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid var(--secondary-color);
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      font-size: 16px;
+    }
+    button {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s, transform 0.3s;
+      margin: 10px;
+    }
+    button:hover {
+      background: var(--highlight-color);
+      transform: scale(1.05);
+    }
+    #feedback {
+      margin-top: 20px;
+      padding: 20px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 15px;
+      display: none;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      transition: opacity 0.3s, background 0.3s;
+    }
+    #backToTop:hover {
+      background: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-title">HireReady</div>
+    <div class="header-icons">
+    </div>
+  </header>
+
+  <nav>
+    <a href="skill_gap.html">Skill Gap Analysis</a>
+    <a href="learning_path.html">Learning Paths</a>
+    <a href="interview_prep.html">Interview Prep</a>
+    <a href="mock_interview.html">Mock Interview</a>
+  </nav>
+
+  <div class="container">
+    <h2>Mock Interview</h2>
+    <div id="mock-interview">
+      <p>Run a skill gap analysis to start your personalized mock interview!</p>
+    </div>
+  </div>
+
+  <button id="backToTop" onclick="scrollToTop()">⇧</button>
+
+  <script>
+    // Mock interview questions with expected keywords for scoring
+    const mockQuestions = {
+      'react': [
+        { question: 'Explain how you would implement a reusable modal component in React.', keywords: ['component', 'props', 'state', 'modal', 'reuse'] },
+        { question: 'Describe a situation where you optimized a React application’s performance.', keywords: ['optimization', 'render', 'performance', 'memo', 'useEffect'] }
+      ],
+      'sql': [
+        { question: 'Write a SQL query to find the second-highest salary from an Employee table.', keywords: ['SELECT', 'ORDER BY', 'LIMIT', 'OFFSET', 'salary'] },
+        { question: 'Design a database schema for a library management system.', keywords: ['tables', 'primary key', 'foreign key', 'books', 'users'] }
+      ],
+      'python': [
+        { question: 'Write a Python function to reverse a linked list.', keywords: ['function', 'linked list', 'reverse', 'pointer', 'node'] },
+        { question: 'How would you handle exceptions in a Python script fetching data from an API?', keywords: ['try', 'except', 'API', 'fetch', 'error'] }
+      ],
+      'javascript': [
+        { question: 'Implement a debounce function in JavaScript.', keywords: ['debounce', 'timeout', 'function', 'delay', 'event'] },
+        { question: 'How would you debug a JavaScript application that’s crashing in production?', keywords: ['debug', 'console', 'error', 'production', 'trace'] }
+      ],
+      'typescript': [
+        { question: 'Convert a JavaScript function to TypeScript with proper typing.', keywords: ['TypeScript', 'type', 'interface', 'function', 'typing'] },
+        { question: 'Explain how you’d enforce type safety in a large codebase.', keywords: ['type safety', 'TypeScript', 'interface', 'strict', 'codebase'] }
+      ],
+      'kubernetes': [
+        { question: 'Describe how you’d deploy a microservices app using Kubernetes.', keywords: ['Kubernetes', 'microservices', 'deploy', 'pod', 'service'] },
+        { question: 'Troubleshoot a Kubernetes pod that’s stuck in a CrashLoopBackOff state.', keywords: ['troubleshoot', 'pod', 'CrashLoopBackOff', 'logs', 'kubectl'] }
+      ],
+      'julia': [
+        { question: 'Write a Julia function to compute the Fibonacci sequence.', keywords: ['function', 'Fibonacci', 'Julia', 'recursion', 'loop'] },
+        { question: 'Explain how you’d optimize a Julia script for performance.', keywords: ['optimize', 'Julia', 'performance', 'type', 'compilation'] }
+      ],
+      'sas': [
+        { question: 'Write a SAS program to merge two datasets and filter results.', keywords: ['SAS', 'merge', 'DATA', 'WHERE', 'filter'] },
+        { question: 'Describe how you’d analyze a large dataset using SAS.', keywords: ['SAS', 'analyze', 'large dataset', 'PROC', 'performance'] }
+      ],
+      'power bi': [
+        { question: 'Design a Power BI dashboard for sales data analysis.', keywords: ['Power BI', 'dashboard', 'sales', 'visualization', 'DAX'] },
+        { question: 'Explain how you’d troubleshoot a slow Power BI report.', keywords: ['troubleshoot', 'Power BI', 'slow', 'performance', 'query'] }
+      ],
+      'apache kafka': [
+        { question: 'Set up a Kafka producer and consumer for a real-time log system.', keywords: ['Kafka', 'producer', 'consumer', 'real-time', 'topic'] },
+        { question: 'How would you scale a Kafka cluster to handle increased load?', keywords: ['scale', 'Kafka', 'cluster', 'partition', 'broker'] }
+      ],
+      'scala': [
+        { question: 'Write a Scala program to process a list of integers using map and filter.', keywords: ['Scala', 'map', 'filter', 'list', 'function'] },
+        { question: 'Explain how you’d integrate Scala with Spark for big data processing.', keywords: ['Scala', 'Spark', 'big data', 'integration', 'RDD'] }
+      ]
+    };
+
+    let interviewQuestions = [];
+    let currentQuestionIndex = 0;
+    let userAnswers = [];
+    let score = 0;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const mockDiv = document.getElementById('mock-interview');
+      const analysisData = JSON.parse(localStorage.getItem('skillGapAnalysis')) || {};
+
+      console.log('Loaded Analysis Data:', analysisData);
+
+      const missingSkills = analysisData.missingSkills || [];
+      const jobRole = analysisData.jobRole || 'General Role';
+
+      if (missingSkills.length === 0) {
+        mockDiv.innerHTML = '<p>No missing skills detected. Run a skill gap analysis to start your mock interview!</p>';
+        return;
+      }
+
+      // Generate mock interview questions
+      missingSkills.forEach(skill => {
+        const skillQuestions = mockQuestions[skill] || [
+          { question: `Explain how you would use ${skill} in a ${jobRole} role.`, keywords: [skill, jobRole.toLowerCase()] }
+        ];
+        interviewQuestions = interviewQuestions.concat(skillQuestions);
+      });
+
+      // Shuffle questions
+      interviewQuestions.sort(() => Math.random() - 0.5);
+
+      mockDiv.innerHTML = `
+        <p>Preparing for: ${jobRole}</p>
+        <button onclick="startInterview()">Start Mock Interview</button>
+      `;
+    });
+
+    function startInterview() {
+      currentQuestionIndex = 0;
+      userAnswers = [];
+      score = 0;
+      displayQuestion();
+    }
+
+    function displayQuestion() {
+      const mockDiv = document.getElementById('mock-interview');
+      if (currentQuestionIndex < interviewQuestions.length) {
+        mockDiv.innerHTML = `
+          <p>Question ${currentQuestionIndex + 1}/${interviewQuestions.length}: ${interviewQuestions[currentQuestionIndex].question}</p>
+          <textarea id="answer" placeholder="Type your answer here..."></textarea>
+          <button onclick="submitAnswer()">Submit Answer</button>
+        `;
+      } else {
+        showResults();
+      }
+    }
+
+    function submitAnswer() {
+      const answer = document.getElementById('answer').value.trim().toLowerCase();
+      const currentQuestion = interviewQuestions[currentQuestionIndex];
+      const keywords = currentQuestion.keywords;
+
+      // Simple scoring: 1 point per keyword found (max 5 points per question)
+      let questionScore = 0;
+      keywords.forEach(keyword => {
+        if (answer.includes(keyword.toLowerCase())) {
+          questionScore++;
+        }
+      });
+      score += Math.min(questionScore, 5); // Cap at 5 points per question
+
+      userAnswers.push({ question: currentQuestion.question, answer, score: questionScore });
+      currentQuestionIndex++;
+      displayQuestion();
+    }
+
+    function showResults() {
+      const mockDiv = document.getElementById('mock-interview');
+      const totalPossibleScore = interviewQuestions.length * 5;
+      const percentage = (score / totalPossibleScore) * 100;
+
+      let feedback = '';
+      if (percentage >= 80) {
+        feedback = 'Excellent performance! You’re well-prepared for your interview.';
+      } else if (percentage >= 60) {
+        feedback = 'Good effort! Review the concepts and practice more for better results.';
+      } else {
+        feedback = 'Needs improvement. Focus on understanding the key concepts and practice answering clearly.';
+      }
+
+      let html = `
+        <h3>Mock Interview Results</h3>
+        <p>Score: ${score}/${totalPossibleScore} (${percentage.toFixed(2)}%)</p>
+        <p><strong>Feedback:</strong> ${feedback}</p>
+        <h4>Your Answers:</h4>
+      `;
+      userAnswers.forEach((entry, index) => {
+        html += `
+          <div style="margin-bottom: 20px;">
+            <p><strong>Question ${index + 1}:</strong> ${entry.question}</p>
+            <p><strong>Your Answer:</strong> ${entry.answer || 'No answer provided'}</p>
+            <p><strong>Score:</strong> ${entry.score}/5</p>
+          </div>
+        `;
+      });
+      html += '<button onclick="startInterview()">Restart Interview</button>';
+
+      mockDiv.innerHTML = html;
+      document.getElementById('feedback').style.display = 'block';
+    }
+
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

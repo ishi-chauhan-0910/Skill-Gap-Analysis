@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillSync - Interview Prep</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --primary-color: #4A90E2;
+      --secondary-color: #50E3C2;
+      --accent-color: #F5A623;
+      --header-gradient: linear-gradient(135deg, #4A90E2, #85e8d2);
+      --nav-bg: #f1f1f1;
+      --container-bg: #e5f5ff;
+      --body-bg: linear-gradient(135deg, #ECF0F1, #FFFFFF);
+      --text-color: #333333;
+      --card-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      --highlight-color: #4A90E2;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--body-bg);
+      color: var(--text-color);
+      transition: background 0.7s, color 0.7s;
+      overflow-x: hidden;
+    }
+    header {
+      background: var(--header-gradient);
+      padding: 20px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .header-icons button {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, background 0.3s;
+    }
+    .header-icons button:hover {
+      background: var(--highlight-color);
+      transform: scale(1.08);
+    }
+    nav {
+      background: var(--nav-bg);
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: sticky;
+      top: 80px;
+      z-index: 90;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    nav a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+    nav a:hover {
+      background: var(--primary-color);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .container {
+      margin: 20px auto;
+      max-width: 1200px;
+      padding: 30px;
+      background: var(--container-bg);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .container h2 {
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--primary-color);
+      font-size: 28px;
+    }
+    .question-section {
+      margin-bottom: 30px;
+    }
+    .question-section h3 {
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+      font-size: 22px;
+    }
+    .question-card {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s;
+    }
+    .question-card:hover {
+      transform: scale(1.02);
+    }
+    .question-card p {
+      margin: 10px 0;
+    }
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      display: none;
+      transition: opacity 0.3s, background 0.3s;
+    }
+    #backToTop:hover {
+      background: var(--accent-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-title">HireReady</div>
+    <div class="header-icons">
+    </div>
+  </header>
+
+  <nav>
+    <a href="skill_gap.html">Skill Gap Analysis</a>
+    <a href="learning.html">Learning Paths</a>
+    <a href="interview_prep.html">Interview Prep</a>
+    <a href="mock_interview.html">Mock Interview</a>
+  </nav>
+
+  <div class="container">
+    <h2>Interview Preparation</h2>
+    <div id="interview-questions">Run a skill gap analysis to see your personalized interview prep content!</div>
+  </div>
+
+  <button id="backToTop" onclick="scrollToTop()">⇧</button>
+
+  <script>
+    // Concept explanations for missing skills
+    const interviewPrepContent = {
+      'react': {
+        concepts: [
+          'React is a JavaScript library for building user interfaces, using components to create reusable UI elements.',
+          'The Virtual DOM is a key concept in React that improves performance by minimizing direct DOM updates.'
+        ]
+      },
+      'sql': {
+        concepts: [
+          'SQL (Structured Query Language) is used to manage and query relational databases.',
+          'Joins in SQL (e.g., INNER, LEFT) combine data from multiple tables based on related columns.'
+        ]
+      },
+      'python': {
+        concepts: [
+          'Python is a versatile, high-level programming language known for its readability and simplicity.',
+          'Decorators in Python modify or enhance functions/classes without changing their source code.'
+        ]
+      },
+      'javascript': {
+        concepts: [
+          'JavaScript is a dynamic scripting language that enables interactivity on web pages.',
+          'Closures allow functions to retain access to variables from their outer scope even after execution.'
+        ]
+      },
+      'typescript': {
+        concepts: [
+          'TypeScript is a superset of JavaScript that adds static typing to improve code reliability.',
+          'Interfaces in TypeScript define the structure of objects, ensuring type safety.'
+        ]
+      },
+      'kubernetes': {
+        concepts: [
+          'Kubernetes is an orchestration platform for managing containerized applications at scale.',
+          'Pods are the smallest deployable units in Kubernetes, containing one or more containers.'
+        ]
+      },
+      'julia': {
+        concepts: [
+          'Julia is a high-performance language designed for numerical and scientific computing.',
+          'Its multiple dispatch feature allows functions to behave differently based on argument types.'
+        ]
+      },
+      'sas': {
+        concepts: [
+          'SAS is a software suite for advanced analytics, with a focus on data manipulation and reporting.',
+          'DATA steps in SAS process data row-by-row, while PROC steps perform specific analyses.'
+        ]
+      },
+      'power bi': {
+        concepts: [
+          'Power BI is a Microsoft tool for data visualization and business intelligence.',
+          'DAX (Data Analysis Expressions) is a formula language used to create calculated fields in Power BI.'
+        ]
+      },
+      'apache kafka': {
+        concepts: [
+          'Apache Kafka is a distributed streaming platform for handling real-time data feeds.',
+          'Topics in Kafka are categories or feeds where data is published and consumed.'
+        ]
+      },
+      'scala': {
+        concepts: [
+          'Scala combines object-oriented and functional programming, running on the JVM.',
+          'Actors in Scala provide a concurrency model based on message passing.'
+        ]
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const questionsDiv = document.getElementById('interview-questions');
+      const analysisData = JSON.parse(localStorage.getItem('skillGapAnalysis')) || {};
+
+      console.log('Loaded Analysis Data:', analysisData);
+
+      const missingSkills = analysisData.missingSkills || [];
+      const jobRole = analysisData.jobRole || 'General Role';
+
+      if (missingSkills.length === 0) {
+        questionsDiv.innerHTML = '<p>No missing skills detected. Run a skill gap analysis to get interview prep content!</p>';
+        return;
+      }
+
+      let html = `<p>Preparing for: ${jobRole}</p>`;
+      missingSkills.forEach(skill => {
+        const skillContent = interviewPrepContent[skill] || {
+          concepts: [`${skill} is a key technology for ${jobRole} roles; learn its basics to understand its applications.`]
+        };
+
+        html += `
+          <div class="question-section">
+            <h3>${skill.charAt(0).toUpperCase() + skill.slice(1)}</h3>
+            <div class="question-card">
+              <p><strong>Key Concepts to Learn:</strong></p>
+              <ul>
+                ${skillContent.concepts.map(c => `<li>${c}</li>`).join('')}
+              </ul>
+            </div>
+          </div>
+        `;
+      });
+
+      questionsDiv.innerHTML = html;
+    });
+
+    const backToTopBtn = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTopBtn.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
